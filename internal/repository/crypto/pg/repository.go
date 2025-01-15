@@ -4,6 +4,7 @@ import (
 	"log"
 
 	"github.com/jmoiron/sqlx"
+	_ "github.com/lib/pq"
 )
 
 type Repository struct {
@@ -21,4 +22,16 @@ func NewRepository(DB_URI string) *Repository {
 	}
 
 	return &Repository{db: db}
+}
+
+func (r *Repository) Save() {
+
+}
+
+func (r *Repository) Get() {
+
+}
+
+func (r *Repository) Delete() {
+
 }

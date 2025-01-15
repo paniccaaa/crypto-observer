@@ -24,11 +24,11 @@ paths:
     delete:
       summary: Remove a cryptocurrency from the watch list
       parameters:
-        - name: id
+        - name: coin
           in: query
           required: true
           schema:
-            type: integer
+            type: string
       responses:
         '200':
           description: Cryptocurrency removed successfully
@@ -74,28 +74,6 @@ components:
         - coin
         - interval
 
-    RemoveCurrencyRequest:
-      type: object
-      properties:
-        coin:
-          type: string
-          description: The cryptocurrency name to remove from the watch list
-      required:
-        - coin
-
-    AddCurrencyResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          example: "Cryptocurrency added successfully"
-        coin:
-          type: string
-          description: The cryptocurrency name added
-        interval:
-          type: integer
-          description: The interval at which the cryptocurrency price will be fetched
-          
     RemoveCurrencyResponse:
       type: object
       properties:
@@ -120,3 +98,16 @@ components:
         - coin
         - price
         - timestamp
+
+    AddCurrencyResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Cryptocurrency added successfully"
+        coin:
+          type: string
+          description: The cryptocurrency name added
+        interval:
+          type: integer
+          description: The interval at which the cryptocurrency price will be fetched

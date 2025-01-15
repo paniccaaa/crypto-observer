@@ -63,7 +63,7 @@ type GetCurrencyPriceParams struct {
 
 // DeleteCurrencyRemoveParams defines parameters for DeleteCurrencyRemove.
 type DeleteCurrencyRemoveParams struct {
-	Id int `form:"id" json:"id"`
+	Coin string `form:"coin" json:"coin"`
 }
 
 // PostCurrencyAddJSONRequestBody defines body for PostCurrencyAdd for application/json ContentType.
@@ -162,18 +162,18 @@ func (siw *ServerInterfaceWrapper) DeleteCurrencyRemove(w http.ResponseWriter, r
 	// Parameter object where we will unmarshal all parameters from the context
 	var params DeleteCurrencyRemoveParams
 
-	// ------------- Required query parameter "id" -------------
+	// ------------- Required query parameter "coin" -------------
 
-	if paramValue := r.URL.Query().Get("id"); paramValue != "" {
+	if paramValue := r.URL.Query().Get("coin"); paramValue != "" {
 
 	} else {
-		siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "id"})
+		siw.ErrorHandlerFunc(w, r, &RequiredParamError{ParamName: "coin"})
 		return
 	}
 
-	err = runtime.BindQueryParameter("form", true, true, "id", r.URL.Query(), &params.Id)
+	err = runtime.BindQueryParameter("form", true, true, "coin", r.URL.Query(), &params.Coin)
 	if err != nil {
-		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "id", Err: err})
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "coin", Err: err})
 		return
 	}
 
@@ -318,18 +318,18 @@ func HandlerWithOptions(si ServerInterface, options StdHTTPServerOptions) http.H
 // Base64 encoded, gzipped, json marshaled Swagger object
 var swaggerSpec = []string{
 
-	"H4sIAAAAAAAC/8xUTW/bOBD9K8TsHhJAsL3bm25JWqQ9NQhyC3KgyZHNQCKZ4cipEei/FyT9IVVqnSIN",
-	"0JMEkvP13pv3Aso13lm0HKB8gaDW2Mj0e6H1VUuEVm1v8anFwPHUk/NIbDC9Uc7Y+NUYFBnPxlko4W6N",
-	"QtHWs1O7BMLKBsUZzlazQlzeXRXi093ncyiAtx6hhMBk7Aq6AoxlpI2sp7Pub8WZsSKgclaHc1E5Eh7J",
-	"OG2U8GQUCuXqGlWKPBSJwSsk6LoCCJ9aQ6ihvM9D9Co/HCLc8hEVx7YGYATvbMC3oiG1Rv0GCCSL57VR",
-	"a8HjAhmEZ1PXYomiQlbrfq0DEgU0GIJcpWHwm2x8He+vhtlSpyK0SmEIVVvX23Hb3QRoN7GLPwTXFFBp",
-	"yukMGQBXTYEjOZ0Gj8pUBrVg02Bg2XgooHLUSIYSqtpJPla1bbPMiB1fT1Y+XO+r51a0ZPlqKebB+qWm",
-	"NHmLjdvgaVm+hmJKuX6f5C7ptXIxORvupRZflwFpgwQFbJBCRui/2WK2iM07j1Z6AyV8SEcFeMnr1O98",
-	"39Vcap3Gcdl74lAyQv1FQwk3LvB++Asd1U3Zpi6d3mZ9WUabIqX3tVEpdv4YnD1aXfz7l7CCEv6ZH71w",
-	"vjPC+YQLdkPWmFpMBxn/NML/i8X7dLDjOLUw1N7pnY0xoW0aSVsoo6MJ+eNqsEuSfZas1qI2adiiR8hh",
-	"41Y4wcg1Hgi52SnYS5INMlKA8v4F4sLDU4sUxZXWutxrfgho0QNnJMLpPP0tPpnsuIAP70jd0AAnSEsP",
-	"BCGTwc2v+bpG7tmJq8bkSRZy72qqZ2pDCvOmZ++qkXFM48d0ftRcev8qKo3+e7D/iTue3pxJKxxykXOP",
-	"GajINeMF6rrvAQAA///iYURkZgkAAA==",
+	"H4sIAAAAAAAC/7RUTW/bOBD9K8TsHhJAsL27N92SbJH21CDILciBJkc2A4lkhiOnRqD/XpD0h1SpdYrU",
+	"Jwkk5+u9N+8NlGu8s2g5QPkGQa2xken3Suublgit2t7jS4uB46kn55HYYHqjnLHxqzEoMp6Ns1DCwxqF",
+	"oq1np3YJhJUNigucrWaFuH64KcSnh8+XUABvPUIJgcnYFXQFGMtIG1lPZ93figtjRUDlrA6XonIkPJJx",
+	"2ijhySgUytU1qhR5KBKDV0jQdQUQvrSGUEP5mIfoVX46RLjlMyqObQ3ACN7ZgB9FQ2qN+gMQSBava6PW",
+	"gscFMgivpq7FEkWFrNb9WgckCmgwBLlKw+A32fg63t8Ms6VORWiVwhCqtq6347a7CdDuYhd/CK4poNKU",
+	"0xkyAK6aAkdyOg0elakMasGmwcCy8VBA5aiRDCVUtZN8rGrbZpkRO76erHy43lfPrWjJ8t1SzIP1S01p",
+	"8h4bt8HTsnwPxZRy/T7JXdJr5WJyNtxLLb4uA9IGCQrYIIWM0D+zxWwRm3cerfQGSvgvHRXgJa9Tv/N9",
+	"V3OpdRrHZe+JQ8kI9RcNJdy5wPvhr3RUN2WbunZ6m/VlGW2KlN7XRqXY+XNw9mh18e9vwgpK+Gt+9ML5",
+	"zgjnEy7YDVljajEdZPzTCP8uFufpYMdxamGovdM7G2NC2zSStlBGRxPyx9VglyT7KlmtRW3SsEWPkMPG",
+	"rXCCkVs8EHK3U7CXJBtkpADl4xvEhYeXFimKK611udf8ENCiB85IhNN5+lt8MtlxAZ/OSN3QACdISw8E",
+	"IZPBza/5ukXu2YmrxuRJFnLvaqpnakMK86Zn76qRcUzj/+n8qLn0/jxUnhP8n9jj6dWZ9MIhGTn3mIKK",
+	"XDPeoK77HgAA//8XBee+ZwkAAA==",
 }
 
 // GetSwagger returns the content of the embedded swagger specification file
