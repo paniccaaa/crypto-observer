@@ -1,0 +1,4 @@
+db_uri: "postgres://wbuser:wbpassword@localhost:5435/postgres?sslmode=disable"
+
+srv:
+  addr: "localhost:8089"

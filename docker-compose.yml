@@ -1,0 +1,33 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: coins
+    environment:
+      POSTGRES_USER: wbuser
+      POSTGRES_PASSWORD: wbpassword
+      POSTGRES_DB: wbdatabase
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - crypto
+  
+  app:
+    build:
+      context: . 
+      dockerfile: Dockerfile
+    container_name: crypto-observer
+    environment:
+      - CONFIG_PATH=/app/docker.yaml
+    ports:
+      - "8089:8089"
+    networks:
+      - crypto
+
+networks:
+  crypto:
+    driver: bridge
+
+volumes:
+  postgres_data:
