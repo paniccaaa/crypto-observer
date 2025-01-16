@@ -28,6 +28,11 @@ jobs:
       run: |
         git fetch origin gh-pages || git checkout --orphan gh-pages
 
+    - name: Configure git user
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
     - name: Commit and Push changes to gh-pages
       run: |
         git add .
