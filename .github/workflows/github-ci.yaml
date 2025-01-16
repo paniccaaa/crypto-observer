@@ -3,7 +3,7 @@ name: Deploy Documentation and API to GitHub Pages
 on:
   push:
     branches:
-      - main  # Отслеживает пуши в ветку main
+      - main
 
 jobs:
   deploy:
@@ -18,15 +18,15 @@ jobs:
 
     - name: Copy documentation files to public folder
       run: |
-        cp -r ./public/* ./public/  
+        cp -r ./public/* ./public/ || true
 
     - name: Copy API folder to public
       run: |
-        cp -r ./api ./public/  
+        cp -r ./api ./public/
 
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        branch: gh-pages   
-        folder: public     
-        token: ${{ secrets.GITHUB_TOKEN }}  
+        branch: gh-pages
+        folder: public
+        token: ${{ secrets.GITHUB_TOKEN }}
