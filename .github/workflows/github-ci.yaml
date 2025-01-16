@@ -18,7 +18,7 @@ jobs:
 
     - name: Copy documentation files to public folder
       run: |
-        cp -r ./public/* ./public/ || true
+        cp -r ./redoc.html ./swagger.html ./public/ || true
 
     - name: Copy API folder to public
       run: |
