@@ -18,23 +18,15 @@ jobs:
 
     - name: Copy documentation files to public folder
       run: |
-        cp -r ./redoc.html ./swagger.html ./public/ || true
+        cp -r ./public/* ./public/ || true
 
     - name: Copy API folder to public
       run: |
         cp -r ./api ./public/
 
-    - name: Check if files have changed
-      run: git status
-
     - name: Set up gh-pages branch if it does not exist
       run: |
         git fetch origin gh-pages || git checkout --orphan gh-pages
-
-    - name: Configure git user
-      run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
     - name: Commit and Push changes to gh-pages
       run: |
