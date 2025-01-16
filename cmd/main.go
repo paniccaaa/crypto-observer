@@ -20,6 +20,10 @@ func main() {
 	db := pg.NewRepository(cfg.DB_URI)
 	cryptoService := v1.NewService(db)
 
+	go func() {
+		cryptoService.StartPriceUpdater()
+	}()
+
 	impl := api.NewImplementation(cryptoService)
 
 	srv := app.SetupServer(cfg, impl)

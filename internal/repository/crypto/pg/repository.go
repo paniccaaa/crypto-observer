@@ -27,8 +27,25 @@ func NewRepository(DB_URI string) *Repository {
 	return &Repository{db: db}
 }
 
-func (r *Repository) Save() {
+func (r *Repository) Save(coinPrice model.CoinPrice) error {
+	query := "INSERT INTO coin_prices (coin_id, price, timestamp) VALUES ($1, $2, $3)"
+	_, err := r.db.Exec(query, coinPrice.CoinID, coinPrice.Price, coinPrice.Timestamp.Unix())
+	if err != nil {
+		return fmt.Errorf("failed to save coin price: %w", err)
+	}
 
+	return nil
+}
+
+func (r *Repository) GetAll() ([]model.Coin, error) {
+	query := "SELECT * FROM coin"
+
+	var coins []model.Coin
+	if err := r.db.Select(&coins, query); err != nil {
+		return nil, fmt.Errorf("failed to get all coins: %w", err)
+	}
+
+	return coins, nil
 }
 
 // coin table

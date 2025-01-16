@@ -17,8 +17,8 @@ COPY --from=builder /build/bin/app /app/app
 
 COPY ./config/docker.yaml /app/docker.yaml  
 
-COPY ./api /app/
-COPY ./public ./app
+COPY ./api /app/api
+COPY ./public /app/public
 
 EXPOSE 8089
 CMD ["/app/app"]

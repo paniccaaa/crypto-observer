@@ -10,6 +10,8 @@ type Storage interface {
 	Create(cryptocurrency string) (model.Coin, error)
 	Get(cryptocurrency string, timestamp time.Time) (model.CoinPrice, error)
 	Delete(cryptocurrency string) error
+	GetAll() ([]model.Coin, error)
+	Save(coinPrice model.CoinPrice) error
 }
 
 type Service struct {

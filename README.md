@@ -18,3 +18,4 @@ make goose-up
 
 3) Docs:
 ```http://localhost:8089/docs/redoc.html```
+```http://localhost:8089/docs/swagger.html```
