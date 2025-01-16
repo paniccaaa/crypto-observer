@@ -18,10 +18,5 @@ make goose-up
 
 3) Docs:
 
-gh-pages:
 - https://paniccaaa.github.io/crypto-observer/public/redoc.html
 - https://paniccaaa.github.io/crypto-observer/public/swagger.html
-
-local:
-- http://localhost:8089/docs/redoc.html
-- http://localhost:8089/docs/swagger.html
