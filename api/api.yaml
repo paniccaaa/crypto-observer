@@ -1,0 +1,120 @@
+openapi: 3.0.0
+info:
+  title: Crypto Observer
+  version: 1.0.0
+paths:
+  /currency/add:
+    post:
+      summary: Add a cryptocurrency to the watch list
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddCurrencyRequest'
+      responses:
+        '200':
+          description: Cryptocurrency added successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddCurrencyResponse'
+              
+  /currency/remove:
+    delete:
+      summary: Remove a cryptocurrency from the watch list
+      parameters:
+        - name: coin
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Cryptocurrency removed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemoveCurrencyResponse'
+                
+  /currency/price:
+    get:
+      summary: Get the price of a cryptocurrency at a specific timestamp
+      parameters:
+        - name: coin
+          in: query
+          required: true
+          schema:
+            type: string
+        - name: timestamp
+          in: query
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Price retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PriceResponse'
+
+components:
+  schemas:
+    AddCurrencyRequest:
+      type: object
+      properties:
+        coin:
+          type: string
+          description: The cryptocurrency name (e.g., BTC, ETH)
+      required:
+        - coin
+
+
+    AddCurrencyResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: A unique identifier for the added cryptocurrency
+        name:
+          type: string
+          description: The cryptocurrency name added
+        created_at:
+          type: integer
+          description: The timestamp indicating when the cryptocurrency was added
+      required:
+        - id
+        - name
+        - created_at
+
+    RemoveCurrencyResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "Cryptocurrency removed successfully"
+      required:
+        - message
+
+    PriceResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: A unique identifier cryptocurrency
+        coin:
+          type: string
+          description: The cryptocurrency name
+        price:
+          type: number
+          format: float
+          description: The price of the cryptocurrency at the specified timestamp
+        timestamp:
+          type: integer
+          description: The timestamp of the price data
+      required:
+        - id
+        - coin
+        - price
+        - timestamp
