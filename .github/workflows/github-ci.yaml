@@ -13,6 +13,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Create public directory
+      run: mkdir -p public
+
     - name: Copy documentation files to public folder
       run: |
         cp -r ./api/ ./public/ || true
@@ -20,6 +23,6 @@ jobs:
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
-        branch: main
+        branch: gh-pages
         folder: public
         token: ${{ secrets.GITHUB_TOKEN }}
