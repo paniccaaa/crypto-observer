@@ -18,5 +18,5 @@ make goose-up
 
 3) Docs:
 
-- https://paniccaaa.github.io/crypto-observer/public/redoc.html
-- https://paniccaaa.github.io/crypto-observer/public/swagger.html
+- https://paniccaaa.github.io/crypto-observer/redoc.html
+- https://paniccaaa.github.io/crypto-observer/swagger.html
