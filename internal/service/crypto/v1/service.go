@@ -1,7 +1,15 @@
 package v1
 
+import (
+	"time"
+
+	"github.com/paniccaaa/crypto-observer/internal/model"
+)
+
 type Storage interface {
-	Save()
+	Create(cryptocurrency string) (model.Coin, error)
+	Get(cryptocurrency string, timestamp time.Time) (model.CoinPrice, error)
+	Delete(cryptocurrency string) error
 }
 
 type Service struct {

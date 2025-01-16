@@ -30,6 +30,8 @@ func main() {
 		}
 	}()
 
+	log.Printf("start server :%v", cfg.Server.Addr)
+
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 

@@ -11,6 +11,9 @@ import (
 func SetupServer(cfg *Config, impl *api.Implementation) *http.Server {
 	mux := http.NewServeMux()
 
+	mux.Handle("/docs/", http.StripPrefix("/docs/", http.FileServer(http.Dir("./public"))))
+	mux.Handle("/api/", http.StripPrefix("/api/", http.FileServer(http.Dir("./api"))))
+
 	mux.Handle("GET /currency/price", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		coin := r.FormValue("coin")
 		time := r.FormValue("timestamp")

@@ -67,12 +67,26 @@ components:
         coin:
           type: string
           description: The cryptocurrency name (e.g., BTC, ETH)
-        interval:
-          type: integer
-          description: The interval (in seconds) for periodic price collection
       required:
         - coin
-        - interval
+
+
+    AddCurrencyResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: A unique identifier for the added cryptocurrency
+        name:
+          type: string
+          description: The cryptocurrency name added
+        created_at:
+          type: integer
+          description: The timestamp indicating when the cryptocurrency was added
+      required:
+        - id
+        - name
+        - created_at
 
     RemoveCurrencyResponse:
       type: object
@@ -80,10 +94,15 @@ components:
         message:
           type: string
           example: "Cryptocurrency removed successfully"
+      required:
+        - message
 
     PriceResponse:
       type: object
       properties:
+        id:
+          type: integer
+          description: A unique identifier cryptocurrency
         coin:
           type: string
           description: The cryptocurrency name
@@ -95,19 +114,7 @@ components:
           type: integer
           description: The timestamp of the price data
       required:
+        - id
         - coin
         - price
         - timestamp
-
-    AddCurrencyResponse:
-      type: object
-      properties:
-        message:
-          type: string
-          example: "Cryptocurrency added successfully"
-        coin:
-          type: string
-          description: The cryptocurrency name added
-        interval:
-          type: integer
-          description: The interval at which the cryptocurrency price will be fetched

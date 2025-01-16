@@ -23,25 +23,27 @@ import (
 type AddCurrencyRequest struct {
 	// Coin The cryptocurrency name (e.g., BTC, ETH)
 	Coin string `json:"coin"`
-
-	// Interval The interval (in seconds) for periodic price collection
-	Interval int `json:"interval"`
 }
 
 // AddCurrencyResponse defines model for AddCurrencyResponse.
 type AddCurrencyResponse struct {
-	// Coin The cryptocurrency name added
-	Coin *string `json:"coin,omitempty"`
+	// CreatedAt The timestamp indicating when the cryptocurrency was added
+	CreatedAt int `json:"created_at"`
 
-	// Interval The interval at which the cryptocurrency price will be fetched
-	Interval *int    `json:"interval,omitempty"`
-	Message  *string `json:"message,omitempty"`
+	// Id A unique identifier for the added cryptocurrency
+	Id int `json:"id"`
+
+	// Name The cryptocurrency name added
+	Name string `json:"name"`
 }
 
 // PriceResponse defines model for PriceResponse.
 type PriceResponse struct {
 	// Coin The cryptocurrency name
 	Coin string `json:"coin"`
+
+	// Id A unique identifier cryptocurrency
+	Id int `json:"id"`
 
 	// Price The price of the cryptocurrency at the specified timestamp
 	Price float32 `json:"price"`
@@ -52,7 +54,7 @@ type PriceResponse struct {
 
 // RemoveCurrencyResponse defines model for RemoveCurrencyResponse.
 type RemoveCurrencyResponse struct {
-	Message *string `json:"message,omitempty"`
+	Message string `json:"message"`
 }
 
 // GetCurrencyPriceParams defines parameters for GetCurrencyPrice.
@@ -318,18 +320,18 @@ func HandlerWithOptions(si ServerInterface, options StdHTTPServerOptions) http.H
 // Base64 encoded, gzipped, json marshaled Swagger object
 var swaggerSpec = []string{
 
-	"H4sIAAAAAAAC/7RUTW/bOBD9K8TsHhJAsL27N92SbJH21CDILciBJkc2A4lkhiOnRqD/XpD0h1SpdYrU",
-	"Jwkk5+u9N+8NlGu8s2g5QPkGQa2xken3Suublgit2t7jS4uB46kn55HYYHqjnLHxqzEoMp6Ns1DCwxqF",
-	"oq1np3YJhJUNigucrWaFuH64KcSnh8+XUABvPUIJgcnYFXQFGMtIG1lPZ93figtjRUDlrA6XonIkPJJx",
-	"2ijhySgUytU1qhR5KBKDV0jQdQUQvrSGUEP5mIfoVX46RLjlMyqObQ3ACN7ZgB9FQ2qN+gMQSBava6PW",
-	"gscFMgivpq7FEkWFrNb9WgckCmgwBLlKw+A32fg63t8Ms6VORWiVwhCqtq6347a7CdDuYhd/CK4poNKU",
-	"0xkyAK6aAkdyOg0elakMasGmwcCy8VBA5aiRDCVUtZN8rGrbZpkRO76erHy43lfPrWjJ8t1SzIP1S01p",
-	"8h4bt8HTsnwPxZRy/T7JXdJr5WJyNtxLLb4uA9IGCQrYIIWM0D+zxWwRm3cerfQGSvgvHRXgJa9Tv/N9",
-	"V3OpdRrHZe+JQ8kI9RcNJdy5wPvhr3RUN2WbunZ6m/VlGW2KlN7XRqXY+XNw9mh18e9vwgpK+Gt+9ML5",
-	"zgjnEy7YDVljajEdZPzTCP8uFufpYMdxamGovdM7G2NC2zSStlBGRxPyx9VglyT7KlmtRW3SsEWPkMPG",
-	"rXCCkVs8EHK3U7CXJBtkpADl4xvEhYeXFimKK611udf8ENCiB85IhNN5+lt8MtlxAZ/OSN3QACdISw8E",
-	"IZPBza/5ukXu2YmrxuRJFnLvaqpnakMK86Zn76qRcUzj/+n8qLn0/jxUnhP8n9jj6dWZ9MIhGTn3mIKK",
-	"XDPeoK77HgAA//8XBee+ZwkAAA==",
+	"H4sIAAAAAAAC/7RUwW7bOhD8FWLfO7wHCLbb3nRL0iLtqUGQWxAUDLmyGVgkvVw5NQL/e0HKiiSLidOD",
+	"Tzbo9ezszO68gHK1dxYtByhfIKgV1jJ9vdD6qiFCq3a3uGkwcHz15DwSG0w1yhkbPzUGRcazcRZKuFuh",
+	"ULTz7NQBQFhZo/gPZ8tZIS7vrgrx7e77/1AA7zxCCYHJ2CXs9wUQbhpDqKG8b+EfXqvc4xMqhn0x5ha8",
+	"swEz5Aglo/4lOU+RTY2BZe2FsdooycYuxfMKreDpAM8yCKk16p60sYxLpMjH6GmLC9FYs2lQGI2WTWWQ",
+	"ROUogSekoxZZ4KjbxwU+IviGqiaWJOBiqFFO5xsyCt9R+G/sn/L6uG4fUMpHqnky6SfhqpyvktNr8Khi",
+	"K91vBRRQOarj9kC1dpL7trapH9uuffWJFTt0b6loyTIzRM6nJHE33bBfzq5brN0WT19GjSHIZfoBf8va",
+	"ryPM1VgYSlhahEYpDKFq1uvdydXqgKfkYqWxlYs92fCgo/j5GJC2SFDAFim06n2aLWaLOJPzaKU3UMKX",
+	"9FSAl7xKY8w7snOp0yJ514ZUnFVGG35oKOHGBe40udBRVGrz7NLpXbvGltGmf0rv1ykKnJ0/BWf7TIzf",
+	"/iWsoIR/5n1ozg+JOc/E5X4sD1OD6aG1JY3webE4D4OD9YnCeC+PfG6jaORy/E9o6lrSLt6j1kIenw27",
+	"tM7PktVKrE0athgY8nqNS8w4co2vhtwcFttLkjUyUoDy/gVirsCmQdp1WVV2pzAWtBiIM9nNPM7wwk+C",
+	"9cf5cEbrxjmbMS0VCEImg9v3/bpGHkSNq6bmSRaySzw1CLyxhW0AtLm2RsapjV/Te79zqf48Vp5T/DdS",
+	"8/TpZCNybEaLPbWgIldPL2i//xMAAP//KqRY05AJAAA=",
 }
 
 // GetSwagger returns the content of the embedded swagger specification file
