@@ -13,27 +13,32 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
+    - name: Set up gh-pages branch if it does not exist
+      run: |
+        git fetch origin gh-pages || git checkout --orphan gh-pages
+
     - name: Create public directory
       run: mkdir -p public
 
     - name: Copy documentation files to public folder
       run: |
-        cp -r ./public/* ./public/ || true
+        cp -r ./redoc.html ./swagger.html ./public/ || true
+
     - name: Copy API folder to public
       run: |
         cp -r ./api ./public/
-    - name: Set up gh-pages branch if it does not exist
-      run: |
-        git fetch origin gh-pages || git checkout --orphan gh-pages
+
     - name: Configure git user
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
     - name: Commit and Push changes to gh-pages
       run: |
         git add .
         git commit -m "Deploy Documentation and API" || echo "No changes to commit"
         git push origin gh-pages --force
+
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4
       with:
